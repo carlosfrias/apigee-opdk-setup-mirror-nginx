@@ -3,7 +3,7 @@
 - name: Ensure that apigee-mirror is installed
   shell: "{{ apigee_service }} apigee_mirror install"
   args:
-    creates: "{{ apigee_installation_home }}/apigee-mirror/lib/actions/nginxconfig"
+    creates: "{{ apigee_home }}/apigee-mirror/lib/actions/nginxconfig"
 
 - name: Install mirror server
   shell: "{{ apigee_service }} apigee-mirror nginxconfig"
