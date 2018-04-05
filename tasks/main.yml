@@ -8,21 +8,25 @@
 - name: Install mirror server
   shell: "{{ apigee_service }} apigee-mirror nginxconfig"
 
-- name: Create mirror.properties
-  become: yes
-  file:
-    path: '{{ mirror_file }}'
-    state: touch
-    owner: apigee
-    group: apigee
+- block:
+  - name: Create mirror.properties
+    file:
+      path: '{{ mirror_file }}'
+      state: touch
+      owner: apigee
+      group: apigee
 
-- name: Add line
-  lineinfile:
-    dest: '{{ mirror_file }}'
-    line: '{{ item }}'
-  with_items:
-  - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
-  - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+  - name: Add line
+    lineinfile:
+      dest: '{{ mirror_file }}'
+      line: '{{ item }}'
+      owner: apigee
+      group: apigee
+    with_items:
+    - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
+    - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+
+  become: yes
 
 #- name: Add nginx credentials
 #  lineinfile:
