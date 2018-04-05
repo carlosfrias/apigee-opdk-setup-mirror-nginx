@@ -9,6 +9,7 @@
   shell: "{{ apigee_service }} apigee-mirror nginxconfig"
 
 - name: Create mirror.properties
+  become: yes
   file:
     path: '{{ mirror_file }}'
     state: touch
