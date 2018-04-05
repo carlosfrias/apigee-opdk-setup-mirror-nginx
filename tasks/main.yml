@@ -26,7 +26,6 @@
     - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
     - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
 
-  become: yes
 
 #- name: Add nginx credentials
 #  lineinfile:
@@ -38,6 +37,7 @@
 #  - { attribute: 'export MIRROR_USERNAME=', value: '{{ apigee_repo_user | default(default_apigee_repo_user) }}' }
 #  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password| default(default_apigee_repo_password) }}' }
 
-- name: Nginx restart
-  shell: "{{ apigee_nginx }} restart"
+  - name: Nginx restart
+    shell: "{{ apigee_nginx }} restart"
 
+  become: yes
