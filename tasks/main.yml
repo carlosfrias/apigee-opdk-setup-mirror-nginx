@@ -14,9 +14,9 @@
       line: '{{ item }}'
       owner: apigee
       group: apigee
-      with_items:
-      - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
-      - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+    with_items:
+    - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
+    - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
 
   become: yes
 
