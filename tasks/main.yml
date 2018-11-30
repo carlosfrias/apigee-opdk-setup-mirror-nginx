@@ -1,5 +1,23 @@
 ---
 # tasks file for apigee-opdk-setup-mirror-nginx
+- block:
+  - name: Create mirror.properties
+    file:
+    path: '{{ mirror_file }}'
+    state: touch
+    owner: apigee
+    group: apigee
+
+  - name: Add line
+    lineinfile:
+    dest: '{{ mirror_file }}'
+    line: '{{ item }}'
+    owner: apigee
+    group: apigee
+    with_items:
+  - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
+  - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+
 - name: Ensure that apigee-mirror is installed
   shell: "{{ apigee_service }} apigee-mirror install"
   args:
@@ -7,24 +25,8 @@
 
 - name: Install mirror server
   shell: "{{ apigee_service }} apigee-mirror nginxconfig"
-
-- block:
-  - name: Create mirror.properties
-    file:
-      path: '{{ mirror_file }}'
-      state: touch
-      owner: apigee
-      group: apigee
-
-  - name: Add line
-    lineinfile:
-      dest: '{{ mirror_file }}'
-      line: '{{ item }}'
-      owner: apigee
-      group: apigee
-    with_items:
-    - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
-    - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+  args:
+    removes: "{{ apigee_home }}/apigee-mirror/lib/actions/nginxconfig"
 
 
 #- name: Add nginx credentials
