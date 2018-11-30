@@ -3,20 +3,20 @@
 - block:
   - name: Create mirror.properties
     file:
-    path: '{{ mirror_file }}'
-    state: touch
-    owner: apigee
-    group: apigee
+      path: '{{ mirror_file }}'
+      state: touch
+      owner: apigee
+      group: apigee
 
   - name: Add line
     lineinfile:
-    dest: '{{ mirror_file }}'
-    line: '{{ item }}'
-    owner: apigee
-    group: apigee
-    with_items:
-  - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
-  - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
+      dest: '{{ mirror_file }}'
+      line: '{{ item }}'
+      owner: apigee
+      group: apigee
+      with_items:
+      - conf_apigee_mirror_listen_port={{ apigee_mirror_listen_port }}
+      - conf_apigee_mirror_server_name={{ apigee_mirror_server_name }}
 
   become: yes
 
@@ -29,6 +29,8 @@
   shell: "{{ apigee_service }} apigee-mirror nginxconfig"
   args:
     removes: "{{ apigee_home }}/apigee-mirror/lib/actions/nginxconfig"
+  notify:
+    - Nginx restart
 
 
   #- name: Add nginx credentials
@@ -40,6 +42,3 @@
   #  with_items:
   #  - { attribute: 'export MIRROR_USERNAME=', value: '{{ apigee_repo_user | default(default_apigee_repo_user) }}' }
   #  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password| default(default_apigee_repo_password) }}' }
-
-- name: Nginx restart
-  shell: "{{ apigee_nginx }} restart"
