@@ -41,4 +41,4 @@
   #    line: '{{ item.attribute }}{{ item.value }}'
   #  with_items:
   #  - { attribute: 'export MIRROR_USERNAME=', value: '{{ apigee_repo_user | default(default_apigee_repo_user) }}' }
-  #  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password| default(default_apigee_repo_password) }}' }
+  #  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password | default(default_apigee_repo_password) }}' }
