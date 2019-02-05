@@ -32,13 +32,12 @@
   notify:
     - Nginx restart
 
-
-  #- name: Add nginx credentials
-  #  lineinfile:
-  #    backrefs: yes
-  #    dest: /etc/environment
-  #    regexp: "({{ item.attribute }}).*"
-  #    line: '{{ item.attribute }}{{ item.value }}'
-  #  with_items:
-  #  - { attribute: 'export MIRROR_USERNAME=', value: '{{ apigee_repo_user | default(default_apigee_repo_user) }}' }
-  #  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password | default(default_apigee_repo_password) }}' }
+#- name: Add nginx credentials
+#  lineinfile:
+#    backrefs: yes
+#    dest: /etc/environment
+#    regexp: "({{ item.attribute }}).*"
+#    line: '{{ item.attribute }}{{ item.value }}'
+#  with_items:
+#  - { attribute: 'export MIRROR_USERNAME=', value: '{{ apigee_repo_user | default(default_apigee_repo_user) }}' }
+#  - { attribute: 'export MIRROR_PASSWORD=', value: '{{ apigee_repo_password | default(default_apigee_repo_password) }}' }
